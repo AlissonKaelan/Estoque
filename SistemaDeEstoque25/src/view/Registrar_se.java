@@ -155,7 +155,7 @@ public class Registrar_se extends javax.swing.JFrame {
             //Instanciando classe DAO criando objeto DAO
             CadastroDAO dao = new CadastroDAO();
             dao.create(cadastro);
-            JOptionPane.showMessageDialog(null, " Usuario " + txtUsuario.getText() + "foi inserido com sucesso!");
+            JOptionPane.showMessageDialog(null, " Usuario " + txtUsuario.getText() + " foi inserido com sucesso! ");
             
         }
         

@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import model.dao.LoginDAO;
 
@@ -139,7 +140,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Senha incorreta!");
         }
     }//GEN-LAST:event_btnEnterActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */

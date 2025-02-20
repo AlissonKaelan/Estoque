@@ -53,7 +53,7 @@ public class Cadastro {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
+    }    
     public void add(Cadastro cadastro) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

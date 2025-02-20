@@ -4,18 +4,66 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import model.bean.Produto;
+import model.dao.ProdutoDAO;
+
 /**
  *
  * @author Alisson Kaelan
  */
 public class Estoque extends javax.swing.JFrame {
+    public Estoque() {
+        initComponents();
+        DefaultTableModel modelo = (DefaultTableModel) jTProdutos.getModel();
+        jTProdutos.setRowSorter(new TableRowSorter(modelo));
+
+        readJTable();
+
+    }
+
+    public void readJTable() {
+        
+        DefaultTableModel modelo = (DefaultTableModel) jTProdutos.getModel();
+        modelo.setNumRows(0);
+        ProdutoDAO pdao = new ProdutoDAO();
+
+        for (Produto p : pdao.read()) {
+
+            modelo.addRow(new Object[]{
+                p.getId(),
+                p.getDescricao(),
+                p.getQuantidade(),
+                p.getPreco()
+            });
+
+        }
+
+    }
+    public void readJTableForDesc(String desc) {
+        
+        DefaultTableModel modelo = (DefaultTableModel) jTProdutos.getModel();
+        modelo.setNumRows(0);
+        ProdutoDAO pdao = new ProdutoDAO();
+
+        for (Produto p : pdao.readForDesc(desc)) {
+
+            modelo.addRow(new Object[]{
+                p.getId(),
+                p.getDescricao(),
+                p.getQuantidade(),
+                p.getPreco()
+            });
+
+        }
+
+    }
 
     /**
      * Creates new form Estoque
      */
-    public Estoque() {
-        initComponents();
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,31 +74,258 @@ public class Estoque extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTProdutos = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        txtDescricao = new javax.swing.JTextField();
+        txtQuantidade = new javax.swing.JTextField();
+        txtPreco = new javax.swing.JTextField();
+        txtBuscarDescricao = new javax.swing.JTextField();
+        ButtonBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        ButtonCadastrar = new javax.swing.JButton();
+        ButtonExcluir = new javax.swing.JButton();
+        ButtonAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Teste Frame Estoque. OK!");
+        jTProdutos.setBackground(new java.awt.Color(0, 102, 102));
+        jTProdutos.setForeground(new java.awt.Color(0, 0, 0));
+        jTProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID", "ITEM", "QUANTIDADE", "PREÇO"
+            }
+        ));
+        jTProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTProdutosMouseClicked(evt);
+            }
+        });
+        jTProdutos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTProdutosKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTProdutos);
+
+        jButton1.setBackground(new java.awt.Color(0, 51, 51));
+        jButton1.setText("SAIR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        ButtonBuscar.setBackground(new java.awt.Color(0, 51, 51));
+        ButtonBuscar.setText("BUSCAR");
+        ButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonBuscarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel1.setText("ITEM");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel2.setText("QUANTIDADE");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
+        jLabel3.setText("PREÇO");
+
+        ButtonCadastrar.setText("CADASTRAR");
+        ButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonCadastrarActionPerformed(evt);
+            }
+        });
+
+        ButtonExcluir.setText("EXCLUIR");
+        ButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonExcluirActionPerformed(evt);
+            }
+        });
+
+        ButtonAtualizar.setText("ATUALIZAR");
+        ButtonAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonAtualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addGap(126, 126, 126)
-                .addComponent(jLabel1)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addComponent(jButton1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel1)))
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(23, 23, 23))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ButtonCadastrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPreco, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                            .addComponent(txtBuscarDescricao))
+                        .addGap(18, 18, 18)
+                        .addComponent(ButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jLabel1)
-                .addContainerGap(172, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton1)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscarDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ButtonBuscar)
+                    .addComponent(ButtonCadastrar)
+                    .addComponent(ButtonExcluir)
+                    .addComponent(ButtonAtualizar))
+                .addGap(32, 32, 32)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    // TODO add your handling code here:
+    Login login = new Login();
+    login.setVisible(true);
+    this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void ButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCadastrarActionPerformed
+        // TODO add your handling code here:
+        Produto produto = new Produto();
+        ProdutoDAO dao = new ProdutoDAO();
+        
+        produto.setDescricao(txtDescricao.getText());
+        produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+        produto.setPreco(Double.parseDouble(txtPreco.getText()));
+        
+        dao.create(produto);
+        
+        txtDescricao.setText("");
+        txtQuantidade.setText("");
+        txtPreco.setText("");
+        
+        readJTable();
+    }//GEN-LAST:event_ButtonCadastrarActionPerformed
+
+    private void ButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonBuscarActionPerformed
+        // TODO add your handling code here:
+        readJTableForDesc(txtBuscarDescricao.getText());
+    }//GEN-LAST:event_ButtonBuscarActionPerformed
+
+    private void jTProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTProdutosMouseClicked
+        // TODO add your handling code here:
+        if (jTProdutos.getSelectedRow() != -1) {
+
+            txtDescricao.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 1).toString());
+            txtQuantidade.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 2).toString());
+            txtPreco.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 3).toString());
+
+        }
+    }//GEN-LAST:event_jTProdutosMouseClicked
+
+    private void jTProdutosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTProdutosKeyReleased
+        // TODO add your handling code here:
+        if (jTProdutos.getSelectedRow() != -1) {
+
+            txtDescricao.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 1).toString());
+            txtQuantidade.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 2).toString());
+            txtPreco.setText(jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 3).toString());
+
+        }
+    }//GEN-LAST:event_jTProdutosKeyReleased
+
+    private void ButtonAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAtualizarActionPerformed
+        // TODO add your handling code here:
+        if (jTProdutos.getSelectedRow() != -1) {
+
+            Produto produto = new Produto();
+            ProdutoDAO dao = new ProdutoDAO();
+
+            produto.setDescricao(txtDescricao.getText());
+            produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+            produto.setPreco(Double.parseDouble(txtPreco.getText()));
+            produto.setId((int) jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 0));
+            dao.update(produto);
+
+            txtDescricao.setText("");
+            txtQuantidade.setText("");
+            txtPreco.setText("");
+
+            readJTable();
+
+        }
+    }//GEN-LAST:event_ButtonAtualizarActionPerformed
+
+    private void ButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonExcluirActionPerformed
+        // TODO add your handling code here:
+        if(jTProdutos.getSelectedRow() != -1){
+             Produto p = new Produto();
+             ProdutoDAO dao = new ProdutoDAO();
+             
+             p.setId((int) jTProdutos.getValueAt(jTProdutos.getSelectedRow(), 0));
+             
+             dao.delete(p);
+             
+             txtDescricao.setText("");
+             txtQuantidade.setText("");
+             txtPreco.setText("");
+             
+             readJTable();    
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um produto para excluir.");
+        }
+    }//GEN-LAST:event_ButtonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,6 +363,19 @@ public class Estoque extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ButtonAtualizar;
+    private javax.swing.JButton ButtonBuscar;
+    private javax.swing.JButton ButtonCadastrar;
+    private javax.swing.JButton ButtonExcluir;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTProdutos;
+    private javax.swing.JTextField txtBuscarDescricao;
+    private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtPreco;
+    private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }
