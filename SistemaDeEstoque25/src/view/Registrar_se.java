@@ -6,6 +6,7 @@ package view;
 
 import javax.swing.JOptionPane;
 import model.bean.Cadastro;
+import model.bean.ValidadorCPF;
 import model.dao.CadastroDAO;
 
 /**
@@ -13,6 +14,12 @@ import model.dao.CadastroDAO;
  * @author Alisson Kaelan
  */
 public class Registrar_se extends javax.swing.JFrame {
+    protected void limparCampos() {
+        txtUsuario.setText("");
+        txtDateN.setText("");
+        txtCpf.setText("");
+        txtSeha.setText("");
+    }
 
     /**
      * Creates new form Registrar_se
@@ -62,6 +69,12 @@ public class Registrar_se extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Senha");
+
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsuarioActionPerformed(evt);
+            }
+        });
 
         btnRegistrar.setBackground(new java.awt.Color(0, 102, 102));
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -151,20 +164,30 @@ public class Registrar_se extends javax.swing.JFrame {
         //isEmpty funcao que vai retornar um valor boolean
         if(txtUsuario.getText().isEmpty() || (txtUsuario.getText().isEmpty())|| (txtDateN.getText().isEmpty()) ||(txtCpf.getText().isEmpty() || (txtSeha.getText().isEmpty()) )){
             JOptionPane.showMessageDialog(null, "Campos vazios");
-        } else{
-            //Instanciando classe DAO criando objeto DAO
-            CadastroDAO dao = new CadastroDAO();
-            dao.create(cadastro);
-            JOptionPane.showMessageDialog(null, " Usuario " + txtUsuario.getText() + " foi inserido com sucesso! ");
-            
-        }
+        } // Validações adicionais
+    if (!ValidadorCPF.validarDataNascimento(cadastro.getData_nascimento())) {
+        JOptionPane.showMessageDialog(null, "Data de nascimento inválida ou menor de idade.");
+        return; // Interrompe a execução se a data for inválida
+    }
+
+    if (!ValidadorCPF.validarCPF(cadastro.getCpf())) {
+        JOptionPane.showMessageDialog(null, "CPF inválido.");
+        return; // Interrompe a execução se o CPF for inválido
+    }
+
+    // Se todas as validações passarem, chama o DAO para salvar
+    CadastroDAO dao = new CadastroDAO();
+    dao.create(cadastro);
+    
+    
+    limparCampos();
         
-        //Apagar informacoes que foram cadastrada
-        txtUsuario.setText("");
-        txtDateN.setText("");
-        txtCpf.setText("");
-        txtSeha.setText("");
+        
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
