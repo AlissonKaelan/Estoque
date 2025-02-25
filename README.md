@@ -42,3 +42,19 @@ Este projeto é uma aplicação Java que utiliza a biblioteca JFrame para criar 
 2. Configure o banco de dados MySQL com as tabelas necessárias. O dump do banco de dados está disponível na pasta `Dump database` dentro do projeto.
 3. Compile e execute a aplicação Java.
 
+## Alterações Realizadas
+1. **Validação de Dados Pessoais**
+   - **Classe `ValidadorCPF`**: Adicionada para validar a data de nascimento e o CPF.
+     - **Método `validarDataNascimento(String data_nascimento)`**: Verifica se a data de nascimento é válida e se a pessoa é maior de idade.
+     - **Método `validarCPF(String cpf)`**: Verifica se o CPF é válido, considerando os dígitos verificadores.
+
+2. **Integração de Validações no Cadastro**
+   - **Classe `CadastroDAO`**: Modificado o método `create(Cadastro c)` para incluir validações antes de inserir os dados no banco de dados.
+     - Mensagens de erro são exibidas se a data de nascimento ou o CPF forem inválidos, utilizando `JOptionPane`.
+
+3. **Atualização da Tela de Registro**
+   - **Classe `Registrar_se`**: Modificado o método `btnRegistrarActionPerformed` para manter os dados na tela caso alguma informação esteja incorreta.
+     - Validações adicionais foram implementadas para garantir que os campos não estejam vazios e que os dados sejam válidos antes de prosseguir com o registro.
+
+## Conclusão
+O projeto de gerenciamento de estoque foi aprimorado com a adição de validações para dados pessoais, garantindo que as informações inseridas pelos usuários sejam válidas antes de serem armazenadas. Isso melhora a integridade dos dados e a experiência do usuário ao interagir com o sistema.
