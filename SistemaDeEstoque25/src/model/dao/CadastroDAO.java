@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import model.bean.Cadastro;
-import model.bean.ValidadorCPF;
+import model.bean.Validador;
 
 /**
  *
@@ -19,12 +19,12 @@ import model.bean.ValidadorCPF;
 public class CadastroDAO{
     public void create(Cadastro c) {
         // Validações
-        if (!ValidadorCPF.validarDataNascimento(c.getData_nascimento())) {
+        if (!Validador.validarDataNascimento(c.getData_nascimento())) {
             JOptionPane.showMessageDialog(null, "Data de nascimento inválida ou menor de idade.");
             return; // Interrompe a execução se a data for inválida
         }
 
-        if (!ValidadorCPF.validarCPF(c.getCpf())) {
+        if (!Validador.validarCPF(c.getCpf())) {
             JOptionPane.showMessageDialog(null, "CPF inválido.");
             return; // Interrompe a execução se o CPF for inválido
         }

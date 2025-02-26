@@ -6,7 +6,7 @@ package view;
 
 import javax.swing.JOptionPane;
 import model.bean.Cadastro;
-import model.bean.ValidadorCPF;
+import model.bean.Validador;
 import model.dao.CadastroDAO;
 
 /**
@@ -165,12 +165,12 @@ public class Registrar_se extends javax.swing.JFrame {
         if(txtUsuario.getText().isEmpty() || (txtUsuario.getText().isEmpty())|| (txtDateN.getText().isEmpty()) ||(txtCpf.getText().isEmpty() || (txtSeha.getText().isEmpty()) )){
             JOptionPane.showMessageDialog(null, "Campos vazios");
         } // Validações adicionais
-    if (!ValidadorCPF.validarDataNascimento(cadastro.getData_nascimento())) {
+    if (!Validador.validarDataNascimento(cadastro.getData_nascimento())) {
         JOptionPane.showMessageDialog(null, "Data de nascimento inválida ou menor de idade.");
         return; // Interrompe a execução se a data for inválida
     }
 
-    if (!ValidadorCPF.validarCPF(cadastro.getCpf())) {
+    if (!Validador.validarCPF(cadastro.getCpf())) {
         JOptionPane.showMessageDialog(null, "CPF inválido.");
         return; // Interrompe a execução se o CPF for inválido
     }
