@@ -13,6 +13,8 @@ import java.time.format.DateTimeParseException;
  * @author Alisson Kaelan
  */
 public class Validador extends Cadastro{
+
+
     // Método para validar a data de nascimento
     public static boolean validarDataNascimento(String data_nascimento) {
         try {
@@ -71,12 +73,7 @@ public class Validador extends Cadastro{
         return rev == Character.getNumericValue(cpf.charAt(10));
     }
     
-    public static boolean usuarioExistente(String Usuario){
-    if(Usuario != Usuario){
-        
-    }
-        return false;
+ }
+ 
     
-}
-    
-}
+

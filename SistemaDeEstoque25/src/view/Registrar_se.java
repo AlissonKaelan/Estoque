@@ -174,6 +174,7 @@ public class Registrar_se extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "CPF inválido.");
         return; // Interrompe a execução se o CPF for inválido
     }
+   
 
     // Se todas as validações passarem, chama o DAO para salvar
     CadastroDAO dao = new CadastroDAO();

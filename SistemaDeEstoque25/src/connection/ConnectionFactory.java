@@ -21,7 +21,7 @@ public class ConnectionFactory {
     private static final String USER = "root";
     private static final String PASS = "admin";
 
-    public static Connection getConnection() {
+    public static Connection getConnection() {  
         try {
             
             return DriverManager.getConnection(URL, USER, PASS);
