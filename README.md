@@ -83,4 +83,4 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir um "issue" ou en
 
 ## Licença
 
-Este projeto está licenciado sob a [MIT License](LICENSE).
+Este projeto está licenciado sob a [Apache License 2.0](LICENSE).
