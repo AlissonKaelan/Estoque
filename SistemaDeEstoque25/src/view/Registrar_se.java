@@ -6,7 +6,6 @@ package view;
 
 import javax.swing.JOptionPane;
 import model.bean.Cadastro;
-import model.bean.Validador;
 import model.dao.CadastroDAO;
 
 /**
@@ -161,29 +160,14 @@ public class Registrar_se extends javax.swing.JFrame {
         cadastro.setCpf(txtCpf.getText());
         cadastro.setSenha(txtSeha.getText());
         
-        //isEmpty funcao que vai retornar um valor boolean
-        if(txtUsuario.getText().isEmpty() || (txtUsuario.getText().isEmpty())|| (txtDateN.getText().isEmpty()) ||(txtCpf.getText().isEmpty() || (txtSeha.getText().isEmpty()) )){
-            JOptionPane.showMessageDialog(null, "Campos vazios");
-        } // Validações adicionais
-    if (!Validador.validarDataNascimento(cadastro.getData_nascimento())) {
-        JOptionPane.showMessageDialog(null, "Data de nascimento inválida ou menor de idade.");
-        return; // Interrompe a execução se a data for inválida
-    }
-
-    if (!Validador.validarCPF(cadastro.getCpf())) {
-        JOptionPane.showMessageDialog(null, "CPF inválido.");
-        return; // Interrompe a execução se o CPF for inválido
-    }
-   
-
-    // Se todas as validações passarem, chama o DAO para salvar
-    CadastroDAO dao = new CadastroDAO();
-    dao.create(cadastro);
-    
-    
-    limparCampos();
-        
-        
+       
+                // Se todas as validações passarem, chama o DAO para salvar
+                if (CadastroDAO.create(cadastro)) {
+                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
+                    new Login().setVisible(true);
+                     this.dispose();
+                        limparCampos();
+                };
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed

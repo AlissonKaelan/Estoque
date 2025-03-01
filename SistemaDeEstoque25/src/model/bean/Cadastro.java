@@ -10,7 +10,7 @@ package model.bean;
  */
 public class Cadastro {
     private int id;
-    private String usuario;
+    protected String usuario;
     private String data_nascimento;
     private String cpf;
     private String senha;

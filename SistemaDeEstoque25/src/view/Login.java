@@ -4,7 +4,6 @@
  */
 package view;
 
-import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import model.dao.LoginDAO;
 
