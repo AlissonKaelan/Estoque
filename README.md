@@ -1,60 +1,86 @@
-# Projeto de Gerenciamento de Estoque em Java
+# Documentação do Projeto Estoque
 
-Este projeto é uma aplicação Java que utiliza a biblioteca JFrame para criar uma interface gráfica de usuário (GUI) para gerenciamento de estoque. O sistema permite que os usuários façam login, se registrem e gerenciem produtos em um estoque.
+Este projeto é um sistema de controle de estoque desenvolvido em Java, utilizando JDBC para interação com um banco de dados MySQL. O sistema permite o registro de usuários, login e gerenciamento de produtos no estoque.
 
 ## Estrutura do Projeto
 
-### Conexão com o Banco de Dados
-- **Classe `ConnectionFactory`**: Gerencia a conexão com o banco de dados MySQL.
-  - **Métodos**:
-    - `getConnection()`: Estabelece uma conexão com o banco de dados.
-    - `closeConnection(Connection con)`: Fecha a conexão.
-    - `closeConnection(Connection con, PreparedStatement stmt)`: Fecha a conexão e o PreparedStatement.
-    - `closeConnection(Connection con, PreparedStatement stmt, ResultSet rs)`: Fecha a conexão, PreparedStatement e ResultSet.
+O projeto é dividido em várias camadas:
 
-### Modelos de Dados
-- **Classe `Cadastro`**: Representa um usuário com atributos como `id`, `usuario`, `data_nascimento`, `cpf` e `senha`.
-- **Classe `Login`**: Representa as credenciais de login de um usuário.
-- **Classe `Produto`**: Representa um produto com atributos como `id`, `descricao`, `quantidade` e `preco`.
+- **Connection**: Gerencia a conexão com o banco de dados.
+- **Model**: Contém as classes que representam as entidades do sistema (Cadastro, Login, Produto).
+- **DAO (Data Access Object)**: Contém as classes responsáveis pela interação com o banco de dados para cada entidade.
+- **View**: Contém as classes que representam a interface gráfica do usuário.
 
-### Acesso a Dados
-- **Classe `CadastroDAO`**: Realiza operações de CRUD para a tabela de cadastro de usuários.
-- **Classe `LoginDAO`**: Verifica as credenciais de login de um usuário.
-- **Classe `ProdutoDAO`**: Realiza operações de CRUD para a tabela de produtos.
+## Dependências
 
-### Interface Gráfica
-- **Classe `Login`**: Tela de login onde os usuários podem inserir suas credenciais.
-- **Classe `Registrar_se`**: Tela de registro para novos usuários.
-- **Classe `Estoque`**: Tela para gerenciar produtos, permitindo adicionar, atualizar, excluir e buscar produtos.
+- Java Development Kit (JDK)
+- MySQL Connector/J (para conexão com o MySQL)
+- MySQL Server
+
+## Configuração do Banco de Dados
+
+1. Crie um banco de dados chamado `estoque`.
+2. Execute os seguintes comandos SQL para criar as tabelas necessárias:
+
+  ```sql
+CREATE TABLE cadastro (
+ id INT AUTO_INCREMENT PRIMARY KEY,
+usuario VARCHAR(255) NOT NULL,
+data_nascimento DATE NOT NULL,
+cpf VARCHAR(11) NOT NULL,
+senha VARCHAR(255) NOT NULL
+ );
+CREATE TABLE produtos (
+id INT AUTO_INCREMENT PRIMARY KEY,
+ descricao VARCHAR(255) NOT NULL,
+ quantidade INT NOT NULL,
+ preco DOUBLE NOT NULL
+);
+```
+### Dump do Banco de Dados
+
+Um dump do banco de dados está disponível na pasta `Dump database` do projeto. Você pode usar este arquivo para restaurar o banco de dados rapidamente.
+
+## Configuração do Projeto
+
+1. Clone o repositório:
+
+   git clone https://github.com/AlissonKaelan/Estoque
+
+2. Abra o projeto em sua IDE favorita (como IntelliJ IDEA ou Eclipse).
+3. Configure a conexão com o banco de dados na classe `ConnectionFactory`:
+
+   private static final String URL = "jdbc:mysql://localhost:3306/estoque";<br>
+   private static final String USER = "root";<br>
+   private static final String PASS = "admin";<br>
 
 ## Funcionalidades
-- **Login**: Usuários podem se autenticar no sistema.
-- **Registro**: Novos usuários podem se cadastrar.
-- **Gerenciamento de Produtos**: Usuários podem adicionar, atualizar, excluir e buscar produtos no estoque.
 
-## Tecnologias Utilizadas
-- **Java**: Linguagem de programação principal.
-- **JFrame**: Para a construção da interface gráfica.
-- **MySQL**: Sistema de gerenciamento de banco de dados utilizado para persistência de dados.
+### Cadastro de Usuário
 
-## Como Executar o Projeto
-1. Certifique-se de ter o Java e o MySQL instalados em sua máquina.
-2. Configure o banco de dados MySQL com as tabelas necessárias. O dump do banco de dados está disponível na pasta `Dump database` dentro do projeto.
-3. Compile e execute a aplicação Java.
+- O usuário pode se registrar fornecendo um nome de usuário, data de nascimento, CPF e senha.
+- O sistema valida se o CPF e a data de nascimento são válidos.
 
-## Alterações Realizadas
-1. **Validação de Dados Pessoais**
-   - **Classe `ValidadorCPF`**: Adicionada para validar a data de nascimento e o CPF.
-     - **Método `validarDataNascimento(String data_nascimento)`**: Verifica se a data de nascimento é válida e se a pessoa é maior de idade.
-     - **Método `validarCPF(String cpf)`**: Verifica se o CPF é válido, considerando os dígitos verificadores.
+### Login
 
-2. **Integração de Validações no Cadastro**
-   - **Classe `CadastroDAO`**: Modificado o método `create(Cadastro c)` para incluir validações antes de inserir os dados no banco de dados.
-     - Mensagens de erro são exibidas se a data de nascimento ou o CPF forem inválidos, utilizando `JOptionPane`.
+- O usuário pode fazer login utilizando seu nome de usuário e senha.
+- O sistema verifica se as credenciais estão corretas.
 
-3. **Atualização da Tela de Registro**
-   - **Classe `Registrar_se`**: Modificado o método `btnRegistrarActionPerformed` para manter os dados na tela caso alguma informação esteja incorreta.
-     - Validações adicionais foram implementadas para garantir que os campos não estejam vazios e que os dados sejam válidos antes de prosseguir com o registro.
+### Gerenciamento de Produtos
 
-## Conclusão
-O projeto de gerenciamento de estoque foi aprimorado com a adição de validações para dados pessoais, garantindo que as informações inseridas pelos usuários sejam válidas antes de serem armazenadas. Isso melhora a integridade dos dados e a experiência do usuário ao interagir com o sistema.
+- O usuário pode adicionar, atualizar, excluir e buscar produtos no estoque.
+- Cada produto possui uma descrição, quantidade e preço.
+
+## Como Executar
+
+1. Compile o projeto.
+2. Execute a classe `Login` para iniciar o sistema.
+3. Siga as instruções na interface gráfica para registrar-se ou fazer login.
+
+## Contribuição
+
+Contribuições são bem-vindas! Sinta-se à vontade para abrir um "issue" ou enviar um "pull request".
+
+## Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
